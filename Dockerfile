@@ -32,5 +32,13 @@ RUN export GK_VERSION=$(curl -sL \
   && mv /opt/geckodriver /opt/geckodriver-$GK_VERSION \
   && chmod 755 /opt/geckodriver-$GK_VERSION \
   && ln -fs /opt/geckodriver-$GK_VERSION /usr/bin/geckodriver
-  
+
+#============
+# Latest MyUSPS
+#============
+RUN wget https://github.com/happyleavesaoc/python-myusps/archive/master.zip -O /root/master.zip \
+  && unzip /root/master.zip -d /root/ \
+  && rm -rf /root/master.zip \
+  && pip3 install -e /root/python-myusps-master
+
 CMD [ "python", "-m", "homeassistant", "--config", "/config" ]
